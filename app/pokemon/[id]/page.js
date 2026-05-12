@@ -68,14 +68,14 @@ export default async function PokemonDetail({ params }) {
         {pokemon.stats.map(stat => (
           <div key={stat.stat.name} className="mb-2">
             <div className="flex justify-between mb-1">
-<span className="capitalize">{stat.stat.name}</span>
-<span>{stat.base_stat}</span>
+              <span className="capitalize">{stat.stat.name}</span>
+              <span>{stat.base_stat}</span>
             </div>
             <div className="bg-gray-200 rounded h-2">
-<div
-  className="bg-green-500 rounded h-full"
-  style={{ width: `${Math.min(stat.base_stat / 255 * 100, 100)}%` }}
-/>
+              <div
+                className="bg-green-500 rounded h-full"
+                style={{ width: `${Math.min(stat.base_stat / 255 * 100, 100)}%` }}
+              />
             </div>
           </div>
         ))}
