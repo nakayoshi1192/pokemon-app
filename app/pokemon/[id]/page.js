@@ -1,5 +1,25 @@
 // app/pokemon/[id]/page.js
-'use server'; 
+import Database from "better-sqlite3";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+
+async function addBookmark(formData) {
+  "use server";
+
+  const pokemonId = Number(formData.get("pokemon_id"));
+  const pokemonName = String(formData.get("pokemon_name") || "");
+  const note = String(formData.get("note") || "").trim().slice(0, 120);
+
+  const db = new Database("app.db");
+  db.prepare(
+    "INSERT OR IGNORE INTO bookmarks (pokemon_id, pokemon_name, note) VALUES (?, ?, ?)"
+  ).run(pokemonId, pokemonName, note);
+  db.close();
+
+  revalidatePath("/bookmarks");
+  redirect("/bookmarks");
+}
+
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
@@ -86,6 +106,13 @@ export default async function PokemonDetail({ params }) {
             </div>
           </div>
         ))}
+      </div>
+
+      <div>
+        <form action={addBookmark} className="mt-6 space-y-2"> <input type="hidden" name="pokemon_id" value={pokemon.id} />
+        <input type="hidden" name="pokemon_name" value={pokemon.name} />
+        <input type="text" name="note" maxLength={120} placeholder="メモ（任意）" className="w-full border rounded px-3 py-2" />
+        <button type="submit" className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700" > ブックマークに追加 </button> </form>
       </div>
     </main>
   );

@@ -8,6 +8,7 @@ export default async function Home() {
   return (
     <main className="p-8">
       <h1 className="text-2xl font-bold">ポケモン図鑑</h1>
+      <a href={`/bookmarks/`} className="text-blue-600 hover:underline">ブックマーク</a>
       <div className="grid grid-cols-4 gap-4 mt-4">
         {data.results.map((pokemon, index) => {
           const id = index + 1;
