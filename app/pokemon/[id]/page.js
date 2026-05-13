@@ -1,7 +1,8 @@
 // app/pokemon/[id]/page.js
 import Database from "better-sqlite3";
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+
+export const dynamic = 'force-dynamic';
 
 async function addBookmark(formData) {
   "use server";
@@ -16,7 +17,6 @@ async function addBookmark(formData) {
   ).run(pokemonId, pokemonName, note);
   db.close();
 
-  revalidatePath("/bookmarks");
   redirect("/bookmarks");
 }
 
@@ -110,9 +110,10 @@ export default async function PokemonDetail({ params }) {
 
       <div>
         <form action={addBookmark} className="mt-6 space-y-2"> <input type="hidden" name="pokemon_id" value={pokemon.id} />
-        <input type="hidden" name="pokemon_name" value={pokemon.name} />
-        <input type="text" name="note" maxLength={120} placeholder="メモ（任意）" className="w-full border rounded px-3 py-2" />
-        <button type="submit" className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700" > ブックマークに追加 </button> </form>
+          <input type="hidden" name="pokemon_name" value={pokemon.name} />
+          <input type="text" name="note" maxLength={120} placeholder="メモ（任意）" className="w-full border rounded px-3 py-2" />
+          <button type="submit" className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700" > ブックマークに追加 </button>
+        </form>
       </div>
     </main>
   );

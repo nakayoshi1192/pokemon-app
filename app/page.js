@@ -17,7 +17,7 @@ export default async function Home() {
               key={pokemon.name}
               href={`/pokemon/${id}`}
               className="border border-gray-300 rounded-lg p-4 text-center
-                        no-underline text-inherit hover:bg-gray-50"
+                        no-underline text-inherit hover:bg-gray-900"
                           >
               <img
                 src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}
