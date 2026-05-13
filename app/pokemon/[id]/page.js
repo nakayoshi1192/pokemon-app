@@ -45,7 +45,14 @@ export default async function PokemonDetail({ params }) {
           <tr className="border-b border-gray-300">
             <th className="p-2 text-left">タイプ</th>
             <td className="p-2">
-              {pokemon.types.map(t => t.type.name).join(', ')}
+              {pokemon.types.map((t, index) => {
+                return (
+                  <span key={t.type.name}>
+                    {index > 0 && ', '}
+                    <a href={`/type/` + t.type.name} className="text-blue-600 hover:underline">{t.type.name}</a>
+                  </span>
+                );
+              })}
             </td>
           </tr>
           <tr className="border-b border-gray-300">
